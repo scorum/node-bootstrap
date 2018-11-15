@@ -1,5 +1,10 @@
 #!/bin/bash
 
+function unzip_not_installed() {
+	echo "install unzip package"
+	exit 1
+}
+
 dir=$(pwd)
 name="${dir##*/}"
 
@@ -15,8 +20,8 @@ echo "download state"
 wget "https://sandboxscorum.blob.core.windows.net/blockchain/mainnet-witness_scorum/release:0.4.0.e826520_shared-mem_2018-11-12T23_10_22.316114.zip" -O state.zip
 
 echo "unziping"
-unzip blocklog.zip
-unzip state.zip
+unzip blocklog.zip || unzip_not_installed
+unzip state.zip || unzip_not_installed
 
 rm shared_memory.meta
 
